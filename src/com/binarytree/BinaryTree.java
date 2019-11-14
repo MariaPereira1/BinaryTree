@@ -4,20 +4,26 @@ public class BinaryTree {
     private Node root = null;
 
     public void add(int value) {
-        if (this.root == null) {
+        if (root == null) {
             this.root = new Node(value);
-
+            return;
         } else {
-            Node temp = this.root;
+            addNode(root, value);
+        }
+    }
 
-            while (temp.left != null && temp.right != null) {
-                temp = temp.left;
-            }
-
-            if (temp.left != null) {
-                temp.right = new Node(value);
+    public void addNode(Node current, int value) {
+        if (value > current.value) {
+            if (current.right == null) {
+                current.right = new Node(value);
             } else {
-                temp.left = new Node(value);
+                addNode(current.right, value);
+            }
+        } else {
+            if (current.left == null) {
+                current.left = new Node(value);
+            } else {
+                addNode(current.left, value);
             }
         }
     }
